@@ -6,9 +6,10 @@ class Clear(commands.Cog):
         self.bot = bot
 
     @commands.slash_command()  # Тестовая комманда ping
-    async def clear(self, interaction):
+    async def clear(self, interaction, amount: int):
 
-        await interaction.response.send_message("Pong!")
+        await interaction.channel.purge(limit=amount + 1)
+        await interaction.response.send_message(f"Administrator: <@{interaction.author.id}> - cleared {amount} messages.")
 
 
 def setup(bot):

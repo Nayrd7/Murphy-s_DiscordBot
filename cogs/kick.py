@@ -12,8 +12,8 @@ class Kick(commands.Cog):
     async def kick(self, interaction, member: disnake.Member, *, reason):
 
         embed = disnake.Embed(
-            title=f"Member ****{member.name}**** was kicked from the server",
-            description=f"Moderator: ****{interaction.author.name}****\n\nReason: ****{reason}****",
+            title=f"Member ****<@{member.id}>**** was kicked from the server",
+            description=f"Moderator: ****<@{interaction.author.id}>****\n\nReason: ****{reason}****",
             color=0xfa0000
         )
 
