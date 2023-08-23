@@ -62,7 +62,7 @@ async def on_command_error(interaction, error):
         ))
 
 
-path = Path("cogs")
+path = Path("cogs")  # Путь использования когов
 for file in os.listdir(path):
     if file.endswith(".py"):
         bot.load_extension(f"cogs.{file[:-3]}")
