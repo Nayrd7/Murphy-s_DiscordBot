@@ -11,14 +11,16 @@ class Kick(commands.Cog):
     @commands.has_permissions(kick_members=True, administrator=True)
     async def kick(self, interaction, member: disnake.Member, *, reason):
 
+        bot_reason = f'Moderator: {interaction.author.name}. Reason: {reason}.'
+
         embed = disnake.Embed(
-            title=f"Member ****<@{member.id}>**** was kicked from the server",
-            description=f"Moderator: ****<@{interaction.author.id}>****\n\nReason: ****{reason}****",
+            title=f'Moderator used command "/kick"',
+            description=f"Member ****<@{member.id}>**** was kicked from the server.\n\nModerator: ****<@{interaction.author.id}>****.\n\nReason: ****{reason}****.",
             color=0xfa0000
         )
 
         await interaction.response.send_message(embed=embed)
-        await member.kick(reason=reason)
+        await member.kick(reason=bot_reason)
 
 
 def setup(bot):
