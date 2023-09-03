@@ -7,6 +7,7 @@ class Rules(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.has_permissions(administrator=True)
     async def rules(self, ctx):
 
         embed = disnake.Embed(
