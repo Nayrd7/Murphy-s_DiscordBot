@@ -51,8 +51,13 @@ async def on_member_remove(member):
 
 
 @bot.event
-async def on_command_error(interaction, error):
+async def on_command_error(error):
     print(f'--- {error} ---')
+
+
+@bot.event
+async def on_slash_command_error(interaction, error):
+    print(f'/// {error} ///')
 
     if isinstance(error, commands.MissingPermissions):
         await interaction.response.send_message(f"{interaction.author}, у вас недостаточно прав для использования этой команды.")
