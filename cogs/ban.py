@@ -10,16 +10,13 @@ class Ban(commands.Cog):
 
     @commands.slash_command()
     @commands.has_permissions(ban_members=True, administrator=True)
-    async def ban(self, interaction, user: disnake.User, time: str, reason: str):
+    async def ban(self, interaction, user: disnake.User, reason: str):
 
-        time = datetime.datetime.now() + datetime.timedelta(minutes=int(time))
-        cool_time = disnake.utils.format_dt(time, style="R")
-
-        bot_reason = f'Moderator: {interaction.author.name}. Reason: {reason}.'
+        bot_reason = f'Модератор: {interaction.author.name}. Причина бана: {reason}.'
 
         embed = disnake.Embed(
-            title=f'Moderator used command "/ban"',
-            description=f"Member <@{user.id}> was baned from this server.\n\nModerator: <@{interaction.author.id}>.\n\nReason: ****{reason}****.\n\nTime left: {cool_time}.",
+            title=f'Модератор использовал комманду: "/ban"',
+            description=f"Участник <@{user.id}> Был забанен на сервере.\n\nМодератор: <@{interaction.author.id}>.\n\nПричина: ****{reason}****.",
             color=0xfa0000
         )
 

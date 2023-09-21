@@ -14,32 +14,32 @@ class Help(commands.Cog):
         if category == "list":
 
             embed = disnake.Embed(
-                title='/help category list:',
-                description=f"list - Shows a list of all categories.\n\nall - Shows commands for all users\n\nmoderation - Shows commands for moderation\n\nadmin - Shows administration commands",
+                title='/help категория "лист":',
+                description=f"list - показывает список всех категорий.\n\nall - Показывает комманды для участников сервера\n\nmoderation - Показывает комманды для модерации\n\nadmin - Показывает комманды для администрации",
                 color=0xffffff
             )
 
         elif category == "all":
 
             embed = disnake.Embed(
-                title="All User commands list:",
-                description=f"/help - Displays a list of all commands in the selected category\n\n/avatar - Shows an avatar (yours or the mentioned user)",
+                title="Список всех комманд участников:",
+                description=f"/help - Отображает список всех комманд в выбранной категории\n\n/avatar - Показывает аватар (ваш или упомянутого участника сервера)",
                 color=0x04ff00
             )
 
         elif category == "moderation":
 
             embed = disnake.Embed(
-                title="Moderation commands list:",
-                description=f"/mute - Sends a member to timeout\n\n/kick - Kicks a member from this server\n\n/ban - Bans a member from the server (permanently or temporarily)",
+                title="Список команд модерации:",
+                description=f"/mute - Отправляет участника в мут\n\n/kick - Выгоняет участника с этого сервера\n\n/ban - Банит участника на сервере",
                 color=0x233afd
             )
 
         elif category == 'admin':
 
             embed = disnake.Embed(
-                title="Admin commands list:",
-                description="/clear - Clears the specified number of messages on the server",
+                title="Список команд администратора:",
+                description="/clear - Очищает указанное количество сообщений на сервере",
                 color=0xff5252
             )
 

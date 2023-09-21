@@ -9,7 +9,7 @@ class Clear(commands.Cog):
     async def clear(self, interaction, amount: int):
 
         await interaction.channel.purge(limit=amount + 1)
-        await interaction.response.send_message(f"Administrator: <@{interaction.author.id}> - cleared {amount} messages.")
+        await interaction.response.send_message(f"Администратор: <@{interaction.author.id}> - очистил {amount} сообщений.")
 
 
 def setup(bot):

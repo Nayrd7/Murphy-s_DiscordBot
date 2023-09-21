@@ -6,7 +6,7 @@ class Avatar(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.slash_command()  # Тестовая комманда ping
+    @commands.slash_command()
     async def avatar(self, interaction, member: disnake.Member = None):
 
         user = member or interaction.author

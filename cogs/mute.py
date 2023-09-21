@@ -14,11 +14,11 @@ class Mute(commands.Cog):
 
         time = datetime.datetime.now() + datetime.timedelta(minutes=int(time))
         cool_time = disnake.utils.format_dt(time, style="R")
-        bot_reason = f'Moderator: {interaction.author.name}. Reason: {reason}.'
+        bot_reason = f'Модератор: {interaction.author.name}. Причина: {reason}.'
 
         embed = disnake.Embed(
-            title=f'Moderator used command "/mute"',
-            description=f"Member <@{member.id}> was timed out.\n\nModerator: <@{interaction.author.id}>.\n\nReason: ****{reason}****.\n\nTime left: {cool_time}.",
+            title=f'Модератор использовал команду "/mute"',
+            description=f"Участник <@{member.id}> был замьючен.\n\nМодератор: <@{interaction.author.id}>.\n\nПричина: ****{reason}****.\n\nВремя: {cool_time}.",
             color=0xfa0000
         )
 
@@ -30,8 +30,8 @@ class Mute(commands.Cog):
     async def unmute(self, interaction, member: disnake.Member):
 
         embed = disnake.Embed(
-            title=f'Moderator used command "/unmute"',
-            description=f"Member <@{member.id}> was untimed out\n\nModerator: <@{interaction.author.id}>",
+            title=f'Модератор использовал команду "/unmute"',
+            description=f"Участник <@{member.id}> был размьючен\n\nМодератор: <@{interaction.author.id}>",
             color=0xfa0000
         )
 
