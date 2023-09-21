@@ -19,14 +19,14 @@ intents = disnake.Intents.all()
 bot = commands.Bot(command_prefix="!@#$%", help_command=None, intents=intents)
 
 
-@bot.event  # Проверка на готовность бота
+@bot.event
 async def on_ready():
     print(f"Bot {bot.user} is ready to work!")
 
 
 @bot.event  # Сообщение "новый участник"
 async def on_member_join(member):
-    channel = bot.get_channel(1141356092358656122)
+    channel = bot.get_channel(1141436357516992563)
 
     embed = disnake.Embed(
         title=f"{member} joined the server!",
@@ -39,7 +39,7 @@ async def on_member_join(member):
 
 @bot.event  # Сообщение "участник вышел"
 async def on_member_remove(member):
-    channel = bot.get_channel(1141356092358656122)
+    channel = bot.get_channel(1141436357516992563)
 
     embed = disnake.Embed(
         title=f"{member} left the server...",
@@ -62,11 +62,11 @@ async def on_command_error(interaction, error):
         ))
 
 
-path = Path("cogs")  # Путь использования когов
+path = Path("cogs")
 for file in os.listdir(path):
     if file.endswith(".py"):
         bot.load_extension(f"cogs.{file[:-3]}")
 
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
-bot.run(BOT_TOKEN)  # Запуск бота по токену
+bot.run(BOT_TOKEN)
