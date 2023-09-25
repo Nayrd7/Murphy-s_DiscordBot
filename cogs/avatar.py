@@ -11,7 +11,7 @@ class Avatar(commands.Cog):
 
         user = member or interaction.author
         embed = disnake.Embed(
-            title="Avatar",
+            title="Аватар",
             color=0x2f3136
         )
         embed.set_image(url=user.display_avatar.url)
