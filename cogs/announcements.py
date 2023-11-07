@@ -6,9 +6,9 @@ class Announcements(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.slash_command(name='публикация', description='Публикация вашего сообщения в новостной канал.')
+    @commands.command()
     @commands.has_permissions(administrator=True)
-    async def announcements(self, interaction, title=commands.Param(name='заголовок', description='Заголовок публикации'), description=commands.Param(name='сообщение', description='Текст публицкации'), color_hex=commands.Param(name='цвет', description='Цвет сообщения в HEX')):
+    async def ann(self, ctx, title, description, color_hex):
 
         color_hex = int(color_hex, 16)
 
@@ -18,7 +18,8 @@ class Announcements(commands.Cog):
             color=color_hex
         )
 
-        await interaction.response.send_message(embed=embed)
+        await ctx.channel.purge(limit=1)
+        await ctx.send(embed=embed)
 
 
 def setup(bot):

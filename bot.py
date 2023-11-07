@@ -16,7 +16,7 @@ load_dotenv(dotenv_path=path)
 
 intents = disnake.Intents.all()
 
-bot = commands.Bot(command_prefix="!@#$%", help_command=None, intents=intents)
+bot = commands.Bot(command_prefix="!", help_command=None, intents=intents)
 
 
 @bot.event
