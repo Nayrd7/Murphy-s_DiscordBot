@@ -9,9 +9,11 @@ from dotenv import load_dotenv
 
 dir_path = pathlib.Path.cwd()
 
-path = Path('bot_token', 'bot_token.env')
+path_cogs = Path('bot_token', 'bot_token.env')
+path_channels = Path('bot_channels', '.env')
 
-load_dotenv(dotenv_path=path)
+load_dotenv(dotenv_path=path_cogs)
+load_dotenv(dotenv_path=path_channels)
 
 
 intents = disnake.Intents.all()
@@ -24,9 +26,12 @@ async def on_ready():
     print(f"Bot {bot.user} is ready to work!")
 
 
-@bot.event  # Сообщение "новый участник"
+OMJ = os.environ.get("OMJ")
+OMJ = int(OMJ)
+
+@bot.event
 async def on_member_join(member):
-    channel = bot.get_channel(1141436357516992563)
+    channel = bot.get_channel(OMJ)
 
     embed = disnake.Embed(
         title=f"{member} присоединился к серверу!",
@@ -37,7 +42,7 @@ async def on_member_join(member):
     await channel.send(embed=embed)
 
 
-@bot.event  # Сообщение "участник вышел"
+@bot.event
 async def on_member_remove(member):
     channel = bot.get_channel(1141436357516992563)
 
@@ -67,8 +72,8 @@ async def on_slash_command_error(interaction, error):
         ))
 
 
-path = Path("cogs")
-for file in os.listdir(path):
+path_cogs = Path("cogs")
+for file in os.listdir(path_cogs):
     if file.endswith(".py"):
         bot.load_extension(f"cogs.{file[:-3]}")
 
