@@ -18,8 +18,8 @@ class Economy(commands.Cog):
         user = await self.db.get_user(member)
         embed = disnake.Embed(color=0x2F3136, title=f'🏦 Баланс пользователя - {member}')
         embed.add_field(name='💴 Рубли', value=f'```{user[1]}```')
-        embed.add_field(name='💵 Премиум', value=f'```{user[2]}```')
-        embed.add_field(name='💶 Премиум', value=f'```{user[3]}```')
+        embed.add_field(name='💵 Доллары', value=f'```{user[2]}```')
+        embed.add_field(name='💶 Евро', value=f'```{user[3]}```')
         embed.set_thumbnail(url=member.display_avatar.url)
         await interaction.response.send_message(embed=embed)
 
