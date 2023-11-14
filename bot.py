@@ -60,19 +60,25 @@ async def on_member_remove(member):
 
 @bot.event
 async def on_command_error(error):
+    print()
     print(f'--- {error} ---')
+    print()
 
 
 @bot.event
 async def on_slash_command_error(interaction, error):
+    print()
     print(f'/// {error} ///')
-
+    print()
     if isinstance(error, commands.MissingPermissions):
         await interaction.response.send_message(f"{interaction.author}, у вас недостаточно прав для использования этой команды.")
     elif isinstance(error, commands.UserInputError):
         await interaction.response.send_message(embed=disnake.Embed(
             description=f"Ой. Похоже, что-то пошло не так. Вы уверены, что правильно ввели команду?"
         ))
+    print()
+    print(f'/// {error} ///')
+    print()
 
 
 path_cogs = Path("cogs")
