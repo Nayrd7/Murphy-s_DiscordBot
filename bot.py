@@ -27,11 +27,11 @@ async def on_ready():
 
 
 OMJ = os.environ.get("OMJ")
-OMJ = int(OMJ)
+
 
 @bot.event
 async def on_member_join(member):
-    channel = bot.get_channel(OMJ)
+    channel = bot.get_channel(int(OMJ))
 
     embed = disnake.Embed(
         title=f"{member} присоединился к серверу!",
@@ -42,9 +42,12 @@ async def on_member_join(member):
     await channel.send(embed=embed)
 
 
+OMR = os.environ.get("OMR")
+
+
 @bot.event
 async def on_member_remove(member):
-    channel = bot.get_channel(1141436357516992563)
+    channel = bot.get_channel(int(OMR))
 
     embed = disnake.Embed(
         title=f"{member} покинул сервер...",

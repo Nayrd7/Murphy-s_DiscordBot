@@ -11,8 +11,9 @@ class UsersDataBase:
             cursor = await db.cursor()
             query = '''CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY,
-                money INTEGER,
-                premium INTEGER
+                ruble INTEGER,
+                dollar INTEGER
+                euro INTEGER
             )'''
             await cursor.execute(query)
             await db.commit()
@@ -28,13 +29,13 @@ class UsersDataBase:
         async with aiosqlite.connect(self.name) as db:
             if not await self.get_user(user):
                 cursor = await db.cursor()
-                query = 'INSERT INTO users (id, money, premium) VALUES (?, ?, ?)'
+                query = 'INSERT INTO users (id, ruble, dollar, euro) VALUES (?, 1000, ?, ?)'
                 await cursor.execute(query, (user.id, 0, 0))
                 await db.commit()
 
-    async def update_money(self, user: disnake.Member, money: int, premium: int):
+    async def update_money(self, user: disnake.Member, ruble: int, dollar: int, euro: int):
         async with aiosqlite.connect(self.name) as db:
             cursor = await db.cursor()
-            query = 'UPDATE users SET money = money + ?, premium = premium + ? WHERE id = ?'
-            await cursor.execute(query, (money, premium, user.id))
+            query = 'UPDATE users SET ruble = ruble + ?, dollar = dollar + ?, euro = euro + ? WHERE id = ?'
+            await cursor.execute(query, (ruble, dollar, euro, user.id))
             await db.commit()
