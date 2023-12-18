@@ -7,13 +7,13 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
+import config
+
 dir_path = pathlib.Path.cwd()
 
 path_cogs = Path('bot_token', 'bot_token.env')
-path_channels = Path('bot_channels', '.env')
 
 load_dotenv(dotenv_path=path_cogs)
-load_dotenv(dotenv_path=path_channels)
 
 
 intents = disnake.Intents.all()
@@ -26,12 +26,9 @@ async def on_ready():
     print(f"Bot {bot.user} is ready to work!")
 
 
-ON_MEMBER_JOIN = os.environ.get("ON_MEMBER_JOIN")
-
-
 @bot.event
 async def on_member_join(member):
-    channel = bot.get_channel(int(ON_MEMBER_JOIN))
+    channel = bot.get_channel(int(config.on_member_join))
 
     embed = disnake.Embed(
         title=f"{member} присоединился к серверу!",
@@ -42,12 +39,9 @@ async def on_member_join(member):
     await channel.send(embed=embed)
 
 
-ON_MEMBER_REMOVE = os.environ.get("ON_MEMBER_REMOVE")
-
-
 @bot.event
 async def on_member_remove(member):
-    channel = bot.get_channel(int(ON_MEMBER_REMOVE))
+    channel = bot.get_channel(int(config.on_member_remove))
 
     embed = disnake.Embed(
         title=f"{member} покинул сервер...",
