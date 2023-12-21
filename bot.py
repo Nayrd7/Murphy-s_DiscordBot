@@ -7,7 +7,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-import config
+import config as cfg
 
 dir_path = pathlib.Path.cwd()
 
@@ -28,7 +28,7 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    channel = bot.get_channel(int(config.on_member_join))
+    channel = bot.get_channel(int(cfg.on_member_join))
 
     embed = disnake.Embed(
         title=f"{member} присоединился к серверу!",
@@ -41,7 +41,7 @@ async def on_member_join(member):
 
 @bot.event
 async def on_member_remove(member):
-    channel = bot.get_channel(int(config.on_member_remove))
+    channel = bot.get_channel(int(cfg.on_member_remove))
 
     embed = disnake.Embed(
         title=f"{member} покинул сервер...",
@@ -50,29 +50,6 @@ async def on_member_remove(member):
     )
 
     await channel.send(embed=embed)
-
-
-@bot.event
-async def on_command_error(error):
-    print()
-    print(f'--- {error} ---')
-    print()
-
-
-@bot.event
-async def on_slash_command_error(interaction, error):
-    print()
-    print(f'/// {error} ///')
-    print()
-    if isinstance(error, commands.MissingPermissions):
-        await interaction.response.send_message(f"{interaction.author}, у вас недостаточно прав для использования этой команды.")
-    elif isinstance(error, commands.UserInputError):
-        await interaction.response.send_message(embed=disnake.Embed(
-            description=f"Ой. Похоже, что-то пошло не так. Вы уверены, что правильно ввели команду?"
-        ))
-    print()
-    print(f'/// {error} ///')
-    print()
 
 
 path_cogs = Path("cogs")
