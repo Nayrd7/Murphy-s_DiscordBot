@@ -11,9 +11,9 @@ import config as cfg
 
 dir_path = pathlib.Path.cwd()
 
-path_cogs = Path('bot_token', 'bot_token.env')
+path_env = Path('bot_token', 'bot_token.env')
 
-load_dotenv(dotenv_path=path_cogs)
+load_dotenv(dotenv_path=path_env)
 
 
 intents = disnake.Intents.all()
