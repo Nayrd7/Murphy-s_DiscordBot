@@ -1,5 +1,3 @@
-import datetime
-
 import disnake.embeds
 from disnake.ext import commands
 
@@ -20,7 +18,13 @@ class Ban(commands.Cog):
             color=0xfa0000
         )
 
+        embed_member = disnake.Embed(
+            title=f'Уведомление о бане',
+            description=f'Вы были забанены на сервере ****{interaction.guild.name}****.\nПо причине: ****{reason}****\nМодератор: ****{interaction.author.name}****.'
+        )
+
         await interaction.response.send_message(embed=embed)
+        await user.send(embed=embed_member)
         await user.ban(reason=bot_reason)
 
 

@@ -11,6 +11,12 @@ class Help(commands.Cog):
 
         category = category.lower()
 
+        embed_server = disnake.Embed(
+            title=f'Была вызвана комманда "help"',
+            description=f'Я отправил её вам в личные сообщения.',
+            color=0xffffff
+        )
+
         if category == "list":
 
             embed = disnake.Embed(
@@ -43,7 +49,8 @@ class Help(commands.Cog):
                 color=0xff5252
             )
 
-        await interaction.response.send_message(embed=embed)
+        await interaction.response.send_message(embed=embed_server)
+        await interaction.author.send(embed=embed)
 
 
 def setup(bot):
