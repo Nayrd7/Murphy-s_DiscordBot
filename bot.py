@@ -7,7 +7,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-import config as cfg
+import config.config as cfg
 
 dir_path = pathlib.Path.cwd()
 
