@@ -19,7 +19,14 @@ class Kick(commands.Cog):
             color=0xfa0000
         )
 
+        embed_member = disnake.Embed(
+            title=f'Уведомление о кике',
+            description=f"Вы были кикнуты с сервера ****{interaction.guild.name}****.\nПо причине: ****{reason}****\nМодератор: ****{interaction.author.name}****.",
+            color=0xfa0000
+        )
+
         await interaction.response.send_message(embed=embed)
+        await member.send(embed=embed_member)
         await member.kick(reason=bot_reason)
 
 

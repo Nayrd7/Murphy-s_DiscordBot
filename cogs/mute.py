@@ -18,12 +18,19 @@ class Mute(commands.Cog):
 
         embed = disnake.Embed(
             title=f'Модератор использовал команду "/mute"',
-            description=f"Участник <@{member.id}> был замьючен.\n\nМодератор: <@{interaction.author.id}>.\n\nПричина: ****{reason}****.\n\nВремя: {cool_time}.",
+            description=f"Участник <@{member.id}> был замьючен.\n\nМодератор: <@{interaction.author.id}>.\n\nПричина: ****{reason}****.\n\nРазмьют: {cool_time}.",
             color=0xfa0000
         )
 
-        await member.timeout(reason=bot_reason, until=time)
+        embed_member = disnake.Embed(
+            title=f'Уведомление о мьюте',
+            description=f"Вы были замьючены на сервере ****{interaction.guild.name}****.\nПо причине: ****{reason}****\nМодератор: ****{interaction.author.name}****\nРазмьют: {cool_time}.",
+            color=0xfa0000
+        )
+
         await interaction.response.send_message(embed=embed)
+        await member.send(embed=embed_member)
+        await member.timeout(reason=bot_reason, until=time)
 
     @commands.slash_command()
     @commands.has_permissions(mute_members=True, administrator=True)
@@ -35,8 +42,15 @@ class Mute(commands.Cog):
             color=0xfa0000
         )
 
+        embed_member = disnake.Embed(
+            title=f'Уведомление о размьюте',
+            description=f"<@{member.id}>, вы были размьючены на сервере {interaction.guild.name}\n\nМодератор: <@{interaction.author.id}>",
+            color=0xfa0000
+        )
+
         await member.timeout(reason=None, until=None)
         await interaction.response.send_message(embed=embed)
+        await member.send(embed=embed_member)
 
 
 def setup(bot):

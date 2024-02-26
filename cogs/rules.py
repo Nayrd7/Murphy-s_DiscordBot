@@ -26,7 +26,6 @@ class Rules(commands.Cog):
         embed.add_field(name='', value='```• Разведение/поддержка конфликтных ситуаций\n# мьют на 7 дней```', inline=False)
         embed.add_field(name='', value='```• Провокация участников на совершение нарушений\n# бан```', inline=False)
         embed.add_field(name='', value='```• Слив личных данных участников\n# бан```', inline=False)
-        embed.add_field(name='', value='```• Чрезмерное использование нецензурной лексики (более 5 слов в день). 5 сообщений)\n# мьют на 1 час```', inline=False)
         embed.add_field(name='', value='```• Оскорбление родственников участников\nмьют на 7 дней```', inline=False)
         embed.add_field(name='', value='```• Обсуждение и публикация политических и военных тем, а также провокационные высказывания своих взглядов на эти темы и т.д.\n# бан```', inline=False)
         embed.add_field(name='', value='```• Откровенная травля, клевета, распускание ложных слухов об участниках сервера\n# бан```', inline=False)
