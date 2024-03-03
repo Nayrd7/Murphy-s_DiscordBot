@@ -8,9 +8,9 @@ class Timer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.slash_command()
     @commands.has_permissions(administrator=True)
-    async def timer(self, ctx, time, *, title):
+    async def timer(self, interaction, time, title):
 
         time = datetime.datetime.now() + datetime.timedelta(days=int(time))
         cool_time = disnake.utils.format_dt(time, style="R")
@@ -21,7 +21,7 @@ class Timer(commands.Cog):
             color=0xff0000
         )
 
-        await ctx.send(embed=embed)
+        await interaction.send(embed=embed)
 
 
 def setup(bot):
