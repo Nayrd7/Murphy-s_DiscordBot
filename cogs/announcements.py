@@ -6,9 +6,9 @@ class Announcements(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.slash_command()
+    @commands.command()
     @commands.has_permissions(administrator=True)
-    async def ann(self, interaction, title, description, color_hex):
+    async def ann(self, ctx, title, description, color_hex):
 
         color_hex = int(color_hex, 16)
 
@@ -18,8 +18,8 @@ class Announcements(commands.Cog):
             color=color_hex
         )
 
-        await interaction.channel.purge(limit=1)
-        await interaction.send(embed=embed)
+        await ctx.channel.purge(limit=1)
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
