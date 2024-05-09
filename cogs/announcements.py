@@ -19,7 +19,7 @@ class Announcements(commands.Cog):
         )
 
         await ctx.channel.purge(limit=1)
-        await ctx.send(embed=embed)
+        await ctx.send('> @everyone', embed=embed)
 
 
 def setup(bot):
