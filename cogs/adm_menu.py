@@ -4,7 +4,6 @@ from disnake.ext import commands
 
 class AdmmenuModal(disnake.ui.Modal):
     def __init__(self):
-
         components = [
             disnake.ui.TextInput(
                 label='Введите ID канала',
@@ -23,7 +22,7 @@ class AdmmenuModal(disnake.ui.Modal):
             ),
             disnake.ui.TextInput(
                 label='Введите цвет поста',
-                placeholder='HEX формат:',
+                placeholder='HEX формат цвета(без знака #):',
                 custom_id='hex_color',
             )
         ]
@@ -36,24 +35,61 @@ class AdmmenuModal(disnake.ui.Modal):
         content = interaction.text_values["content"]
         hex_color = interaction.text_values["hex_color"]
 
-        embed = disnake.Embed(title=title, description=content, colour=int(hex_color, 16))
+        embed_post = disnake.Embed(
+            title=title,
+            description=content,
+            colour=int(hex_color, 16)
+        )
+
+        embed_notification = disnake.Embed(
+            title='Операция была выполнена успешно!',
+            description='Пост был опубликован!',
+            colour=0x00ff00
+        )
 
         channel = interaction.guild.get_channel(int(id_channel))
 
-        await channel.send('@everyone', embed=embed)
-        await interaction.response.send_message('Сообщение было отправлено', ephemeral=True)
+        await channel.send('> @everyone', embed=embed_post)
+        await interaction.response.send_message(embed=embed_notification, ephemeral=True)
+
+
+class AdmmenuButton(disnake.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    @disnake.ui.button(label="📢 Опубликовать пост", style=disnake.ButtonStyle.green, custom_id="admmenubutton1")
+    async def admmenubutton1(self, button: disnake.ui.Button, interaction: disnake.Interaction):
+        modal = AdmmenuModal()
+        await interaction.response.send_modal(modal)
 
 
 class AdmmenuModalSend(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.persistent_views_added = False
 
-    @commands.slash_command()
+    @commands.command()
     @commands.has_permissions(administrator=True)
     async def admmenu(self, interaction: disnake.AppCmdInter):
+        view = AdmmenuButton()
 
-        modal = AdmmenuModal()
-        await interaction.response.send_modal(modal)
+        embed = disnake.Embed(colour=0xff0000)
+        embed.title = 'Панель администрации.'
+        embed.description = f'Панель администрации упростит вам жизнь!\n' \
+                            'Зачем это нужно? - она создана для того, чтобы не перебирать сотни комманд для отправки одного поста, ' \
+                            'а по нажатию одной кнопки выполнить нужное вам действие, пользуйтесь!\n' \
+                            'Как её использовать? - всё очень просто! Нажимаете кнопку, вводите нужные данные и воуля!'
+
+        await interaction.channel.purge(limit=1)
+        await interaction.send(embed=embed, view=view)
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        if self.persistent_views_added:
+            return
+
+        # Message ID сообщения, где будет кнопка, добавляется после отправки команды.
+        self.bot.add_view(AdmmenuButton(), message_id=1238903079345062018)
 
 
 def setup(bot):

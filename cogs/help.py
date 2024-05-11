@@ -14,12 +14,12 @@ class Help(commands.Cog):
         embed_server = disnake.Embed(
             title=f'Была вызвана комманда "help"',
             description=f'Я отправил её вам в личные сообщения.',
-            color=0xffffff
+            color=0xff0000
         )
 
         if category == "list":
 
-            embed = disnake.Embed(
+            help_embed = disnake.Embed(
                 title='/help категория "лист":',
                 description=f"list - показывает список всех категорий.\n\nall - Показывает комманды для участников сервера\n\nmoderation - Показывает комманды для модерации\n\nadmin - Показывает комманды для администрации",
                 color=0xffffff
@@ -27,7 +27,7 @@ class Help(commands.Cog):
 
         elif category == "all":
 
-            embed = disnake.Embed(
+            help_embed = disnake.Embed(
                 title="Список всех комманд участников:",
                 description=f"/help - Отображает список всех комманд в выбранной категории\n\n/avatar - Показывает аватар (ваш или упомянутого участника сервера)",
                 color=0x04ff00
@@ -35,22 +35,22 @@ class Help(commands.Cog):
 
         elif category == "moderation":
 
-            embed = disnake.Embed(
-                title="Список команд модерации:",
+            help_embed = disnake.Embed(
+                title="Список комманд модерации:",
                 description=f"/mute - Отправляет участника в мут\n\n/kick - Выгоняет участника с этого сервера\n\n/ban - Банит участника на сервере",
                 color=0x233afd
             )
 
         elif category == 'admin':
 
-            embed = disnake.Embed(
-                title="Список команд администратора:",
+            help_embed = disnake.Embed(
+                title="Список комманд администратора:",
                 description="/clear - Очищает указанное количество сообщений на сервере",
                 color=0xff5252
             )
 
         await interaction.response.send_message(embed=embed_server)
-        await interaction.author.send(embed=embed)
+        await interaction.author.send(embed=help_embed)
 
 
 def setup(bot):
