@@ -8,7 +8,8 @@ class ButtonView(disnake.ui.View):
 
     @disnake.ui.button(label="🎮", style=disnake.ButtonStyle.grey, custom_id="button1")
     async def button1(self, button: disnake.ui.Button, interaction: disnake.Interaction):
-        role = interaction.guild.get_role(1142455444619673680) # Получаем роль по ее ID (необходимо указать конкретный ID вместо ...).
+        # Получаем роль по ее ID (необходимо указать конкретный ID вместо ...).
+        role = interaction.guild.get_role(1142455444619673680)
 
         if role in interaction.author.roles:
             await interaction.author.remove_roles(role)
@@ -27,7 +28,8 @@ class ButtonsRole(commands.Cog):
     async def buttons(self, ctx):
         view = ButtonView()
 
-        role = ctx.guild.get_role(1234197077303492628) # Получаем роль по ее ID (необходимо указать конкретный ID вместо ...).
+        # Получаем роль по ее ID (необходимо указать конкретный ID вместо ...).
+        role = ctx.guild.get_role(1234197077303492628)
 
         embed = disnake.Embed(color=0x2F3136)
         embed.set_author(name="Мероприятия:")

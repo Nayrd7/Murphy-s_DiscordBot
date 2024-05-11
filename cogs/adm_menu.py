@@ -2,72 +2,59 @@ import disnake
 from disnake.ext import commands
 
 
-class AmdmenuModal(disnake.ui.Modal):
-    def __init__(self, arg):
-        self.arg = arg  # arg - это аргумент, который передается в конструкторе класса RecruitementSelect
-
-        title = 'Отправить пост:'
+class AdmmenuModal(disnake.ui.Modal):
+    def __init__(self):
 
         components = [
-            disnake.ui.TextInput(label="Название поста", placeholder="Введите название поста", custom_id="title"),
-            disnake.ui.TextInput(label="Контент", placeholder="Введите текст...", custom_id="content"),
-            disnake.ui.TextInput(label="ID канала для отправки", placeholder="Вставьте ID канала, в который хотите отправить пост", custom_id="channel_id")
+            disnake.ui.TextInput(
+                label='Введите ID канала',
+                placeholder='ID канала',
+                custom_id='id_channel',
+            ),
+            disnake.ui.TextInput(
+                label='Введите название поста',
+                placeholder='Название поста',
+                custom_id='title',
+            ),
+            disnake.ui.TextInput(
+                label='Введите содержимое поста',
+                placeholder='Содержимое поста',
+                custom_id='content',
+            ),
+            disnake.ui.TextInput(
+                label='Введите цвет поста',
+                placeholder='HEX формат:',
+                custom_id='hex_color',
+            )
         ]
-        super().__init__(title=title, components=components, custom_id="recruitementModal")
- 
-    async def callback(self, interaction: disnake.ModalInteraction) -> None:
+
+        super().__init__(title='Отправка поста в канал', components=components)
+
+    async def callback(self, interaction: disnake.ModalInteraction):
+        id_channel = interaction.text_values["id_channel"]
         title = interaction.text_values["title"]
         content = interaction.text_values["content"]
-        channel_id = interaction.text_values["channel_id"]
+        hex_color = interaction.text_values["hex_color"]
 
-        embed = disnake.Embed(color=0x2F3136, title=f"{title}")
-        embed.description = f"{content}"
-        embed.set_thumbnail(url=interaction.author.display_avatar.url)
+        embed = disnake.Embed(title=title, description=content, colour=int(hex_color, 16))
 
-        channel = interaction.guild.get_channel(channel_id)  # Вставить ID канала куда будут отправляться заявки
-        await channel.send(embed=embed)
+        channel = interaction.guild.get_channel(int(id_channel))
 
-
-class ButtonView(disnake.ui.View):
-    def __init__(self):
-        super().__init__(timeout=None)
-
-    @disnake.ui.button(label="Отправить новый пост", style=disnake.ButtonStyle.grey, custom_id="")
-    async def admmenu(self, button: disnake.ui.Button, interaction: disnake.Interaction):
-
-        await interaction.response.defer()
+        await channel.send('@everyone', embed=embed)
+        await interaction.response.send_message('Сообщение было отправлено', ephemeral=True)
 
 
-class AmdmenuButton(commands.Cog):
+class AdmmenuModalSend(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.persistent_views_added = False
 
-    @commands.command()
-    async def buttons(self, ctx):
-        view = ButtonView()
+    @commands.slash_command()
+    @commands.has_permissions(administrator=True)
+    async def admmenu(self, interaction: disnake.AppCmdInter):
 
-        # Получаем роль по ее ID (необходимо указать конкретный ID вместо ...).
-        role = ctx.guild.get_role(1234197077303492628)
-
-        embed = disnake.Embed(color=0x2F3136)
-        embed.set_author(name="Мероприятия:")
-        embed.description = f"{role.mention}\n\nНа сервере ежедневно проходят различные мероприятия. " \
-                            "Для того чтобы быть в курсе предстоящих событий, нажми на кнопку ниже. " \
-                            "Повторное нажатие убирает роль."
-        embed.set_image(url="https://i.imgur.com/QzB7q9J.png")
-        await ctx.send(embed=embed, view=view)
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        if self.persistent_views_added:
-            return
-
-        # Message ID сообщения, где будет кнопка, добавляется после отправки команды.
-        # Нужно будет скопировать ID сообщения и вставить вместо "...", после выполнения данных действий
-        # необходимо перезапустить бота.
-        self.bot.add_view(ButtonView(), message_id=1238207443733970999)
+        modal = AdmmenuModal()
+        await interaction.response.send_modal(modal)
 
 
 def setup(bot):
-    bot.add_cog(AmdmenuButton(bot))
+    bot.add_cog(AdmmenuModalSend(bot))
