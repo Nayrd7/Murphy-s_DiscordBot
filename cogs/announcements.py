@@ -2,7 +2,7 @@ import disnake
 from disnake.ext import commands
 
 
-class Announcements(commands.Cog):
+class Announcementso(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -23,4 +23,4 @@ class Announcements(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Announcements(bot))
+    bot.add_cog(Announcementso(bot))
