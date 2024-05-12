@@ -7,3 +7,4 @@ bot_prefix = '!'
 
 # links:
 telegram = 'https://t.me/nayrd_ch'
+boosty = 'https://boosty.to/nayrd/donate'

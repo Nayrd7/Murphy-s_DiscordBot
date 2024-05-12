@@ -24,6 +24,11 @@ class AdmmenuModal(disnake.ui.Modal):
                 label='Введите цвет поста',
                 placeholder='HEX формат цвета(без знака #):',
                 custom_id='hex_color',
+            ),
+            disnake.ui.TextInput(
+                label='Вставьте ссылку на картинку',
+                placeholder='Ссылка должна выглядеть примерно так: https://example.com/fmkgmdk',
+                custom_id='image',
             )
         ]
 
@@ -34,6 +39,7 @@ class AdmmenuModal(disnake.ui.Modal):
         title = interaction.text_values["title"]
         content = interaction.text_values["content"]
         hex_color = interaction.text_values["hex_color"]
+        image = interaction.text_values["image"]
 
         embed_post = disnake.Embed(
             title=title,
@@ -41,8 +47,12 @@ class AdmmenuModal(disnake.ui.Modal):
             colour=int(hex_color, 16)
         )
 
+        if image == '0':
+            pass
+        else:
+            embed_post.set_image(url=image)
+
         embed_notification = disnake.Embed(
-            title='Операция была выполнена успешно!',
             description='Пост был опубликован!',
             colour=0x00ff00
         )
@@ -89,7 +99,7 @@ class AdmmenuModalSend(commands.Cog):
             return
 
         # Message ID сообщения, где будет кнопка, добавляется после отправки команды.
-        self.bot.add_view(AdmmenuButton(), message_id=1238903079345062018)
+        self.bot.add_view(AdmmenuButton(), message_id=1239108039424872469)
 
 
 def setup(bot):
